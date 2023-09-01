@@ -1,0 +1,157 @@
+.card
+{
+    position: relative;
+    width: 300px;
+    margin: 25px 11px;
+    /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
+    /*box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;*/
+   /* box-shadow: 3px 3px 10px 0px  #FFFFFF;*/
+    border-radius: 3% ;
+    height: 420px;
+    background-color: rgb(192, 191, 191);
+    /*border: 2px solid black;*/
+    color: black;
+}
+
+.cardModal
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(85, 85, 85, 0.199);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardModalDiv
+{
+    position: relative;
+    width: 80%;
+    background-color: white;
+    border: 2px solid black;
+}
+
+.hideCard
+{
+    display: none;
+}
+
+.deleteDiv
+{
+    padding: 25px 10px 15px 10px;
+}
+
+.deleteBtnContainer
+{
+    width: 100%;
+    height: 30px;
+    position: relative;
+}
+
+.noDeleteBtn
+{
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+}
+
+.yesDeleteBtn
+{
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+}
+
+.card-image-container
+{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.card-image-container img
+{
+    width: 200px;
+}
+
+.card-animeTitle
+{
+    text-align: center;
+    padding: 10px 5px;
+    height: 36px;
+}
+
+.card-ratingsDiv 
+{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-datePickerDiv
+{
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteContainer
+{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: 14px;
+    padding: 3px 3px;
+    cursor: pointer;
+
+}
+
+.editContainer
+{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    font-size: 12px;
+    padding: 3px 3px;
+    cursor: pointer;
+}
+
+.editClose
+{
+    position: absolute;
+    top:0;
+    right: 0;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.editRatingDiv
+{
+    width: 100%;
+    padding: 15px 5px;
+}
+
+.checkboxDisableWrapper
+{
+    width: 100%;
+    padding: 5px 10px;
+}
+
+.updateBtnContainer
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+

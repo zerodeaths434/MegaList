@@ -1,0 +1,86 @@
+.main-navbar
+{
+    position: absolute;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    /*background-color: rgb(14, 14, 14);*/
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.brand-title
+{
+    margin-left: 10px;
+    font-size: 25px;
+    font-family: sans-serif;
+    font-weight: 900;
+    color: white;
+}
+
+.main-navbar a{
+    text-decoration: none;
+    color: black;
+}
+
+.login-signup
+{
+    margin-left: auto;
+    padding: 0 10px;
+}
+
+.login-signup ul
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.login-signup li 
+{
+    list-style: none;
+
+}
+
+.login-signup li a
+{
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+    display: block;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.profilePic
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: auto;
+    padding: 0 10px;   
+    cursor: pointer;
+}
+
+.profileDropdown
+{
+
+    position: absolute;
+    background-color: white;
+    right: 8px;
+    top: 55px;
+}
+
+.profileDropdownContent
+{
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.navbarUsername
+{
+    color: white;
+    font-size: 20px;
+    padding: 0 10px;
+}

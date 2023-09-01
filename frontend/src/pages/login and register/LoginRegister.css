@@ -1,0 +1,134 @@
+.login
+{
+    position: fixed;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background: #1b1b1b;
+    height: 100vh;
+    /*background: linear-gradient(#2164bd,#73a0db);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;*/
+    overflow: hidden;
+}
+
+.form-container
+{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    /*background: linear-gradient(#7579ff,#b224ef);;*/
+    background: #2a2a2a;
+    border-radius: 10px;
+}
+
+.form-container h1
+{
+    text-align: center;
+    padding-bottom: 20px;
+    color: white;
+}
+
+.form-container form
+{
+    padding: 0 40px;
+}
+
+.input-field
+{
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin: 30px 0;
+}
+
+.input-field input
+{
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.input-field label
+{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: white;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-field span::before
+{
+    content: '';
+    position: absolute;
+    top:40px;
+    left:0;
+    width: 0%;
+    height: 2px;
+    background: #2691d9;
+    transition: .5s;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label
+{
+    top:-5px;
+    color:#2691d9;
+}
+
+.input-field input:focus ~ span::before,
+.input-field input:valid ~ span::before
+{
+    width: 100%;
+}
+
+.submit-btn
+{
+    margin: 10px 0;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #2a2a2a;
+}
+
+.signup-link
+{
+    margin: 30px 0;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+}
+
+.signup-link a
+{
+    text-decoration: none;
+    color: white;
+}
+
+@media only screen and (max-width:496px)
+{
+    .form-container
+    {
+        width: 85%;
+    }
+}
+
+.show
+{
+    display: none;
+}
