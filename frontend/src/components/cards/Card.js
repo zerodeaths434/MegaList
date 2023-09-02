@@ -73,7 +73,9 @@ function Card({
   /* console.log(searchedValue);
   console.log(disable.isDateWatchedDisabled);*/
   return (
-    <div className="card ">
+    <div
+      className={listType === "game" ? "card gameCardWidth" : "card cardWidth"}
+    >
       <div
         className={`${
           deleteCardModal || editCardModal ? "cardModal" : "cardModal hideCard"
@@ -178,8 +180,22 @@ function Card({
         className="fa-regular fa-pen-to-square editContainer"
         onClick={openEditCardModal}
       ></i>
-      <div className="card-image-container">
-        <img src={animeImage} alt="This is random" />
+      <div
+        className={
+          listType === "game"
+            ? "card-image-container"
+            : "card-image-container mt10"
+        }
+      >
+        <img
+          src={animeImage}
+          alt="This is random"
+          style={
+            listType === "game"
+              ? { width: "100%", borderRadius: "3% 3% 0 0" }
+              : { width: "200px" }
+          }
+        />
       </div>
       <div className="card-animeTitle">{searchedValue}</div>
       {!disable.isRatingDisabled && (
