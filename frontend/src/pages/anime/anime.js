@@ -4,6 +4,8 @@ import debounce from "lodash.debounce";
 import { useEffect, useState } from "react";
 import { useSearchParams, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 
@@ -323,8 +325,8 @@ function Anime() {
                   fetchAllCards();
                 }
               } catch (err) {
+                toast.error(err.response?.data?.message);
                 console.log(err);
-                //console.log(err.response.data);
               }
 
               console.log(dateArray);
@@ -347,6 +349,7 @@ function Anime() {
         </div>
       </div>
       <div className="home-page-div">
+        <ToastContainer position="top-center" />
         <div className="navbar">
           <div className="searchDiv">
             <div className="wrapper">

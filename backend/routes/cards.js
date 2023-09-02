@@ -169,7 +169,9 @@ router.post("/:id", async (req, res) => {
           username: req.body.username,
         });
         if (ifexist) {
-          res.status(500).json({ message: "Already exists" });
+          res
+            .status(500)
+            .json({ message: "Error: Anime Already in Your Collection" });
         } else {
           const saveNewCard = await newAnimeCard.save();
           res.status(200).json(saveNewCard);
@@ -183,7 +185,7 @@ router.post("/:id", async (req, res) => {
           username: req.body.username,
         });
         if (ifexist) {
-          res.status(500).json({ message: "Already exists" });
+          res.status(500).json({ message: "Movie Already in Your Collection" });
         } else {
           const saveNewCard = await newMovieCard.save();
           res.status(200).json(saveNewCard);
@@ -196,7 +198,9 @@ router.post("/:id", async (req, res) => {
           username: req.body.username,
         });
         if (ifexist) {
-          res.status(500).json({ message: "Already exists" });
+          res
+            .status(500)
+            .json({ message: "Series Already in Your Collection" });
         } else {
           const saveNewCard = await newSeriesCard.save();
           res.status(200).json(saveNewCard);
@@ -209,7 +213,7 @@ router.post("/:id", async (req, res) => {
           username: req.body.username,
         });
         if (ifexist) {
-          res.status(500).json({ message: "Already exists" });
+          res.status(500).json({ message: "Game Already in Your Collection" });
         } else {
           const saveNewCard = await newGameCard.save();
           res.status(200).json(saveNewCard);

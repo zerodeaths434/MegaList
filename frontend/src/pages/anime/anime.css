@@ -110,6 +110,8 @@
     position: relative;
     padding-bottom: 20px;
     color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 19px;
 
 }
 
@@ -117,6 +119,16 @@
 {
     position: absolute;
     left: 20px;
+}
+.sortByWrapper select
+{
+    background-color: rgb(196, 196, 196);
+    color: rgb(0, 0, 0);
+    outline: none;
+    border: none;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 500;
+
 }
 
 

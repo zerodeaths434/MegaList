@@ -28,7 +28,7 @@ function Home() {
         <Link to={`${user || "guest"}?list=series`}>
           <div className="contentDiv seriesDiv">
             <img
-              src=" https://4.bp.blogspot.com/-6wJroNioAaU/Vbbglq7SCNI/AAAAAAAAE10/NQ1ovBABoqg/s1600/TV-Shows.jpg"
+              src="https://i.pinimg.com/originals/ba/05/5e/ba055e048c003933747a91c64c20cc17.jpg"
               alt="Anime"
             />
             <h1 className="trying">SERIES</h1>

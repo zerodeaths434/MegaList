@@ -1,6 +1,6 @@
 .mainDiv
 {
-  width: 45%;
+  width: 70%;
   height: 80%;
   position: absolute;
   top: 50%;
@@ -73,7 +73,7 @@
   opacity: 0.5;*/
 }
 
-@media only screen and (max-width:660px)
+@media only screen and (max-width:950px)
 {
   .mainDiv
   {

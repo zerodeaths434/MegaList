@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./Card.css";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import star from "./OrangeStar.svg";
 
 function Card({
   searchedValue,
@@ -23,7 +26,8 @@ function Card({
           username: user,
         },
       });
-      window.location.reload();
+      toast.success("Deleted Successfully");
+      setTimeout(() => window.location.reload(), 1200);
     } catch (err) {
       console.log(err);
     }
@@ -55,12 +59,24 @@ function Card({
       );
 
       if (resdata) {
-        window.location.reload();
+        toast.success("Edited Successfully");
+        setTimeout(() => window.location.reload(), 1200);
       }
     } catch (err) {
       console.log(err);
     }
   };
+
+  var starArr = [];
+  for (let i = 0; i < animeRating; i++) {
+    starArr.push(
+      <img
+        src={star}
+        key={i}
+        style={{ width: "15px", height: "15px", color: "orange" }}
+      />
+    );
+  }
 
   const openDeleteCardModal = () => {
     setDeleteCardModal(!deleteCardModal);
@@ -199,11 +215,11 @@ function Card({
       </div>
       <div className="card-animeTitle">{searchedValue}</div>
       {!disable.isRatingDisabled && (
-        <div className="card-ratingsDiv">{animeRating} $$</div>
+        <div className="card-ratingsDiv">{starArr}</div>
       )}
       {!disable.isDateWatchedDisabled && dateWatched[1] && (
         <div className="card-datePickerDiv">
-          Date Watched - {dateWatched[1] + "-" + dateWatched[0]}
+          COMPLETED ON {dateWatched[1] + "-" + dateWatched[0]}
         </div>
       )}
     </div>
@@ -211,3 +227,13 @@ function Card({
 }
 
 export default Card;
+
+/*
+ {animeRating}
+          {"   "}
+          <img
+            src={star}
+            alt="star"
+            style={{ width: "15px", height: "15px" }}
+          />
+          */
