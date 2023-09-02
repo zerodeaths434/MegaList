@@ -2,14 +2,11 @@
 {
     position: relative;
     margin: 25px 11px;
-    /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
-    /*box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;*/
-   /* box-shadow: 3px 3px 10px 0px  #FFFFFF;*/
     border-radius: 3% ;
     height: 420px;
-    background-color: rgb(192, 191, 191);
+    background-color: rgb(255, 255, 255);
     /*border: 2px solid black;*/
-    color: black;
+    color: rgb(0, 0, 0);
 }
 
 .cardWidth
@@ -49,6 +46,7 @@
 .deleteDiv
 {
     padding: 25px 10px 15px 10px;
+    text-align: center;
 }
 
 .deleteBtnContainer
@@ -83,6 +81,7 @@
 .card-image-container img
 {
     width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .mt10
@@ -93,7 +92,7 @@
 .card-animeTitle
 {
     text-align: center;
-    padding: 10px 5px;
+    padding: 15px 5px 5px 5px;
     height: 36px;
 }
 
