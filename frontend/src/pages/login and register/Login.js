@@ -5,6 +5,8 @@ import jwt_decode from "jwt-decode";
 import "./LoginRegister.css";
 import { loginStart, loginSucess, loginFailure } from "../../store/logintask";
 import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function Login() {
@@ -28,9 +30,12 @@ function Login() {
     var userObject = jwt_decode(response.credential);
 
     if (userObject) {
-      console.log(userObject);
-      console.log(userObject.given_name);
-      dispatch(loginSucess({ user: userObject.given_name }));
+      dispatch(
+        loginSucess({
+          user: userObject.sub,
+        })
+      );
+      localStorage.setItem("displayName", userObject.given_name);
       navigate("/");
     }
   };
@@ -39,21 +44,25 @@ function Login() {
     e.preventDefault();
     if (isLogin) {
       dispatch(loginStart());
-      const res = await axios.post(
-        "http://localhost:5000/auth/verify",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/auth/verify",
+          {
+            email: email,
+            password: password,
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
-      if (res.data) {
-        dispatch(loginSucess({ user: res.data.user.username }));
-        console.log(res.data.user);
-        navigate("/");
+        if (res.data) {
+          dispatch(loginSucess({ user: res.data.user.username }));
+          console.log(res.data.user);
+          navigate("/");
+        }
+      } catch (err) {
+        toast.error(err.response.data.message || "Unexpected Error Occured");
       }
     } else {
       try {
@@ -69,11 +78,13 @@ function Login() {
           }
         );
         const resdata = await res.data;
+        console.log(resdata);
         if (resdata) {
           navigate("/auth?mode=login");
         }
       } catch (err) {
         console.log(err);
+        toast.error(err.response.data.message || "Unexpected Error Occured");
       }
     }
   };
@@ -96,6 +107,7 @@ function Login() {
 
   return (
     <section className="login">
+      <ToastContainer position="top-center" />
       <div className="form-container">
         <h1>{isLogin ? "Login" : "Register"}</h1>
         <form onSubmit={handleSubmit}>

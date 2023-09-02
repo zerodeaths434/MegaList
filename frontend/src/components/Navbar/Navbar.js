@@ -14,6 +14,7 @@ function Navbar() {
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("user");
+    localStorage.removeItem("displayName");
     setShowDropDown(false);
     navigate("/");
   };
@@ -39,7 +40,9 @@ function Navbar() {
             alt="Profile Pic"
             onClick={() => setShowDropDown(!showDropDown)}
           />
-          <div className="navbarUsername">{user}</div>
+          <div className="navbarUsername">
+            {localStorage.getItem("displayName") || user}
+          </div>
         </>
       ) : (
         /*<div className="login-signup" onClick={handleLogout}>

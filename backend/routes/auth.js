@@ -14,6 +14,15 @@ router.post("/register", async (req, res) => {
       password: hashed_password,
     });
 
+    const doesEmailExist = await User.findOne({ email: req.body.email });
+    if (doesEmailExist) {
+      return res.status(400).json({ message: "Email is already registered" });
+    }
+    const isUsernameTaken = await User.findOne({ username: req.body.username });
+    if (isUsernameTaken) {
+      return res.status(400).json({ message: "Username is already taken" });
+    }
+
     const user = await newUser.save();
     res.status(201).json(user);
   } catch (err) {
@@ -25,12 +34,12 @@ router.post("/verify", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(400).json("Wrong Credentials");
+      return res.status(400).json({ message: "Email not registered" });
     }
 
     const validated = await bcrypt.compare(req.body.password, user.password);
     if (!validated) {
-      return res.status(400).json("Wrong Credentials");
+      return res.status(400).json({ message: "Wrong password" });
     }
 
     return res.json({ user: user });

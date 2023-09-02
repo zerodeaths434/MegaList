@@ -25,10 +25,10 @@
 .temp-close
 {
     position: absolute;
-    width: 35px;
-    height: 35px;
+    font-size: 22px;
     top: 0;
     right: 0;
+    cursor: pointer;
 }
 
 .button-container
@@ -56,13 +56,14 @@
 .rating-label
 {
     padding: 0 10px;
+
 }
 
-.ratingsDiv select
+.sortByWrapper select
 {
     /*border: none;*/
     outline: none;
-    width: 4em;
+    padding: 3px;
 }
 
 .input-margin-left
@@ -108,6 +109,7 @@
 {
     position: relative;
     padding-bottom: 20px;
+    color: white;
 
 }
 
@@ -172,15 +174,20 @@
 {
     width: 80%;
     height: 35px;
+    outline: none;
+    appearance: none;
+    border-radius: 5px;
+    padding-left: 12px;
+    border-radius: 18px;
 }
 
 .search-bar
 {
     position: absolute;
     right: 10%;
-    width: 30px;
-    height: 30px;
-    background-color: blue;
+    padding: 0 10px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 

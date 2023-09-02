@@ -2,8 +2,9 @@ import "./anime.css";
 import Card from "../../components/cards/Card";
 import debounce from "lodash.debounce";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import axios from "axios";
 
 function Anime() {
@@ -27,6 +28,9 @@ function Anime() {
     }
   };
 
+  let { userId } = useParams();
+  console.log(userId);
+
   const listType = searchParams.get("list");
   let imageSrc;
 
@@ -40,7 +44,7 @@ function Anime() {
       axios
         .get(`http://localhost:5000/post/${listType}`, {
           headers: {
-            username: user,
+            username: userId,
           },
         })
         .then((res) => setUserList(res.data));
@@ -214,12 +218,13 @@ function Anime() {
 
   return (
     <>
-      <div className={`${openModal ? "modalDiv" : "modalDiv hide"}`}>
-        <div className="temp-close" onClick={() => setOpenModal(false)}>
-          Close
-        </div>
-      </div>
+      <div className={`${openModal ? "modalDiv" : "modalDiv hide"}`}></div>
       <div className={`${openModal ? "modal" : "modal hide"}`}>
+        <i
+          className="fa fa-times temp-close"
+          aria-hidden="true"
+          onClick={() => setOpenModal(false)}
+        ></i>
         <div className="image-container">
           <img src={getImage()} alt="This is random" />
         </div>
@@ -350,7 +355,11 @@ function Anime() {
                 onKeyDown={handleKeyDown}
                 onChange={debouncedChange}
               />
-              <span className="search-bar" onClick={handleClick}></span>
+              <i
+                className="fa fa-search search-bar"
+                aria-hidden="true"
+                onClick={handleClick}
+              ></i>
             </div>
             {recommendedList &&
               searchedValue.length > 2 &&
