@@ -40,7 +40,10 @@ function Navbar() {
             alt="Profile Pic"
             onClick={() => setShowDropDown(!showDropDown)}
           />
-          <div className="navbarUsername">
+          <div
+            className="navbarUsername"
+            onClick={() => setShowDropDown(!showDropDown)}
+          >
             {localStorage.getItem("displayName") || user}
           </div>
         </>

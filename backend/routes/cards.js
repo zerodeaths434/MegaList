@@ -153,7 +153,7 @@ router.put("/update/:id", async (req, res) => {
         break;
     }
   } catch (err) {
-    console.log(err);
+    res.status(400).json(err);
   }
 });
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Card.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import star from "./OrangeStar.svg";
 
@@ -18,6 +19,8 @@ function Card({
   const [editCardModal, setEditCardModal] = useState(false);
   const [newDisableRating, setNewDisableRating] = useState(false);
   const [newDisableDateWatched, setNewDisableDateWatched] = useState(false);
+  let { userId } = useParams();
+
   const handleDelete = () => {
     try {
       axios.delete(`http://localhost:5000/post/delete/${listType}`, {
@@ -79,11 +82,15 @@ function Card({
   }
 
   const openDeleteCardModal = () => {
-    setDeleteCardModal(!deleteCardModal);
+    if (user) {
+      setDeleteCardModal(!deleteCardModal);
+    }
   };
 
   const openEditCardModal = () => {
-    setEditCardModal(!editCardModal);
+    if (user) {
+      setEditCardModal(!editCardModal);
+    }
   };
 
   /* console.log(searchedValue);
@@ -104,7 +111,7 @@ function Card({
                 <i
                   className="fa fa-times editClose"
                   aria-hidden="true"
-                  onClick={() => setEditCardModal(!editCardModal)}
+                  onClick={openEditCardModal}
                 ></i>
                 <label for="cars" className="rating-label">
                   Rating
@@ -188,14 +195,18 @@ function Card({
           )}
         </div>
       </div>
-      <i
-        className="fa-regular fa-square-minus deleteContainer"
-        onClick={openDeleteCardModal}
-      ></i>
-      <i
-        className="fa-regular fa-pen-to-square editContainer"
-        onClick={openEditCardModal}
-      ></i>
+      {user === userId && (
+        <>
+          <i
+            className="fa-regular fa-square-minus deleteContainer"
+            onClick={openDeleteCardModal}
+          ></i>
+          <i
+            className="fa-regular fa-pen-to-square editContainer"
+            onClick={openEditCardModal}
+          ></i>
+        </>
+      )}
       <div
         className={
           listType === "game"
