@@ -6,6 +6,7 @@ import { useSearchParams, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "../../components/Loader/Loader";
 
 import axios from "axios";
 
@@ -20,6 +21,7 @@ function Anime() {
   const [disableDateWatched, setDisableDateWatched] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [imageSource, setImageSource] = useState("");
+  const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
 
   const handleClick = () => {};
@@ -40,16 +42,22 @@ function Anime() {
     fetchAllCards();
   }, []);
 
-  const fetchAllCards = () => {
+  const fetchAllCards = async () => {
     console.log(listType);
+    setLoading(true);
     try {
-      axios
-        .get(`http://localhost:5000/post/${listType}`, {
+      const resData = await axios.get(
+        `http://localhost:5000/post/${listType}`,
+        {
           headers: {
             username: userId,
           },
-        })
-        .then((res) => setUserList(res.data));
+        }
+      );
+      if (resData.data) {
+        setLoading(false);
+        setUserList(resData.data);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -405,19 +413,23 @@ function Anime() {
           <div className="totalItems">Total Items - {userList.length}</div>
         </div>
         <section className="section">
-          {userList.map((userAnime) => {
-            return (
-              <Card
-                searchedValue={userAnime.name}
-                animeRating={userAnime.rating}
-                animeImage={userAnime.image}
-                dateWatched={userAnime.dateWatched}
-                disable={userAnime.disable}
-                user={user}
-                listType={listType}
-              />
-            );
-          })}
+          {loading ? (
+            <Loader />
+          ) : (
+            userList.map((userAnime) => {
+              return (
+                <Card
+                  searchedValue={userAnime.name}
+                  animeRating={userAnime.rating}
+                  animeImage={userAnime.image}
+                  dateWatched={userAnime.dateWatched}
+                  disable={userAnime.disable}
+                  user={user}
+                  listType={listType}
+                />
+              );
+            })
+          )}
         </section>
       </div>
     </>
