@@ -46,6 +46,7 @@
     border: none;
     padding: 10px 16px;
     background-color: rgb(54, 179, 81);
+    cursor: pointer;
 }
 
 .ratingsDiv
@@ -145,7 +146,7 @@
     margin-top: 10px;
 }
 
-.animeTitle
+.selectedItemTitle
 {
     width: 100%;
     height: 30px;

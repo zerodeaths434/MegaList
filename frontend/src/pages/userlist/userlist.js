@@ -1,4 +1,4 @@
-import "./anime.css";
+import "./userlist.css";
 import Card from "../../components/cards/Card";
 import debounce from "lodash.debounce";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import Loader from "../../components/Loader/Loader";
 
 import axios from "axios";
 
-function Anime() {
+function Userlist() {
   const [clicked, isClicked] = useState(false);
   const [searchedValue, setSearchedValue] = useState("");
   const [recommendedList, setRecommendedList] = useState([]);
@@ -20,23 +20,12 @@ function Anime() {
   const [disableRating, setDisableRating] = useState(false);
   const [disableDateWatched, setDisableDateWatched] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [imageSource, setImageSource] = useState("");
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
 
-  const handleClick = () => {};
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      handleClick();
-    }
-  };
-
   let { userId } = useParams();
-  console.log(userId);
-
   const listType = searchParams.get("list");
-  let imageSrc;
+  console.log(userId);
 
   useEffect(() => {
     fetchAllCards();
@@ -64,7 +53,16 @@ function Anime() {
   };
 
   const handleChange = (e) => {
-    setSearchedValue(e.target.value);
+    if (e && e.target.value) {
+      setSearchedValue(e.target.value);
+    } else {
+      let inputText = document.getElementsByClassName("search-field");
+      if (inputText.length > 0) {
+        const enteredText = inputText[0].value;
+        setSearchedValue(enteredText);
+      }
+    }
+
     switch (listType) {
       case "anime":
         fetchAnime();
@@ -127,11 +125,14 @@ function Anime() {
 
   const debouncedChange = debounce(handleChange, 600);
 
+  const handleKeyDowm = (e) => {
+    if (e.key === "Enter") {
+      handleChange();
+    }
+  };
+
   const handleRecommendationClick = (item) => {
     setSelectedItem(item);
-
-    console.log(item);
-    console.log(imageSource);
     setOpenModal(!openModal);
   };
 
@@ -236,70 +237,62 @@ function Anime() {
           onClick={() => setOpenModal(false)}
         ></i>
         <div className="image-container">
-          <img src={getImage()} alt="This is random" />
+          <img src={getImage()} alt={`Poster of ${selectedItem.title}`} />
         </div>
-        <div className="animeTitle">{selectedItem.title}</div>
+        <div className="selectedItemTitle">{selectedItem.title}</div>
         <div className="ratingsDiv">
-          <label for="cars" className="rating-label">
+          <label for="rating" className="rating-label">
             Rating
           </label>
-          <select name="cars" id="cars" disabled={disableRating}>
-            <option value="volvo">1</option>
-            <option value="saab">2</option>
-            <option value="opel">3</option>
-            <option value="audi">4</option>
-            <option value="audi">5</option>
-            <option value="audi">6</option>
-            <option value="audi">7</option>
-            <option value="audi">8</option>
-            <option value="audi">9</option>
-            <option value="audi">10</option>
+          <select name="rating" id="rating" disabled={disableRating}>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
           </select>
           <input
             type="checkbox"
-            id="vehicle1"
-            name="vehicle1"
-            value="Bike"
+            id="ratingCheckbox"
+            name="ratingCheckbox"
             className="input-margin-left"
             onClick={() => setDisableRating(!disableRating)}
           />
-          <label for="birthday">Disable </label>
+          <label for="datePicker">Disable </label>
         </div>
         <div className="datePickerDiv">
-          <label for="birthday" className="datepicker-label">
+          <label for="datePicker" className="datepicker-label">
             Birthday:
           </label>
           <input
             type="month"
-            id="birthday"
-            name="birthday"
+            id="datePicker"
+            name="datePicker"
             disabled={disableDateWatched}
           />
           <input
             type="checkbox"
-            id="vehicle1"
-            name="vehicle1"
-            value="Bike"
+            id="datePickerCheckbox"
+            name="datePickerCheckbox"
             className="input-margin-left"
-            onClick={() => {
-              var ele = document.getElementById("vehicle1");
-              console.log("entering");
-              console.log(ele);
-              setDisableDateWatched(!disableDateWatched);
-            }}
+            onClick={() => setDisableDateWatched(!disableDateWatched)}
           />
-          <label for="birthday">Disable</label>
+          <label for="datePicker">Disable</label>
         </div>
         <div className="button-container">
           <button
             onClick={async () => {
-              var e = document.getElementById("cars");
+              var e = document.getElementById("rating");
               var selectedRating = e.options[e.selectedIndex].text;
-              var date = document.getElementById("birthday");
+              var date = document.getElementById("datePicker");
               const dateArray = date.value.split("-");
-              console.log(dateArray);
-
-              console.log(user);
+              /*console.log(dateArray);
+              console.log(user);*/
 
               try {
                 const res = await axios.post(
@@ -326,9 +319,7 @@ function Anime() {
                     },
                   }
                 );
-
                 console.log(res.data);
-
                 if (res) {
                   fetchAllCards();
                 }
@@ -336,18 +327,6 @@ function Anime() {
                 toast.error(err.response?.data?.message);
                 console.log(err);
               }
-
-              console.log(dateArray);
-
-              let obj = {
-                name: selectedItem.title,
-                rating: selectedRating,
-                image: imageSrc,
-                dateWatched: dateArray,
-                isRatingDisabled: disableRating,
-                isDateWatchedDisabled: disableDateWatched,
-              };
-              console.log("hello");
               setOpenModal(false);
               setSearchedValue("");
             }}
@@ -363,13 +342,13 @@ function Anime() {
             <div className="wrapper">
               <input
                 className="search-field"
-                onKeyDown={handleKeyDown}
+                onKeyDown={handleKeyDowm}
                 onChange={debouncedChange}
               />
               <i
                 className="fa fa-search search-bar"
                 aria-hidden="true"
-                onClick={handleClick}
+                onClick={handleChange}
               ></i>
             </div>
             {recommendedList &&
@@ -436,4 +415,4 @@ function Anime() {
   );
 }
 
-export default Anime;
+export default Userlist;
