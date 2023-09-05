@@ -10,23 +10,21 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function Login() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
   const dispatch = useDispatch();
-  const check = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(check));
-  }, [check]);
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
 
   const isLogin = searchParams.get("mode") === "login";
   const navigate = useNavigate();
 
   const handleCallbackResponse = (response) => {
-    console.log("Encoded JWT ID Token " + response.credential);
     var userObject = jwt_decode(response.credential);
 
     if (userObject) {
@@ -62,6 +60,7 @@ function Login() {
           navigate("/");
         }
       } catch (err) {
+        dispatch(loginFailure());
         toast.error(err.response.data.message || "Unexpected Error Occured");
       }
     } else {
@@ -78,12 +77,11 @@ function Login() {
           }
         );
         const resdata = await res.data;
-        console.log(resdata);
         if (resdata) {
           navigate("/auth?mode=login");
         }
       } catch (err) {
-        console.log(err);
+        dispatch(loginFailure());
         toast.error(err.response.data.message || "Unexpected Error Occured");
       }
     }
@@ -103,7 +101,7 @@ function Login() {
     });
 
     google.accounts.id.prompt();
-  }, [isLogin]);
+  }, []);
 
   return (
     <section className="login">
@@ -147,31 +145,9 @@ function Login() {
           <button className="submit-btn" type="submit">
             Submit
           </button>
+          {isLogin && <div className="orStyle">OR</div>}
           {isLogin && (
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                color: "white",
-                fontFamily: "sans-serif",
-                padding: "6px 0",
-                fontSize: "12px",
-              }}
-            >
-              OR
-            </div>
-          )}
-          {isLogin && (
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                padding: "10px 0",
-              }}
-            >
+            <div className="googleDivContainer">
               <div id="googleDiv"></div>
             </div>
           )}

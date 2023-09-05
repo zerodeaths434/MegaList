@@ -11,7 +11,6 @@ import Loader from "../../components/Loader/Loader";
 import axios from "axios";
 
 function Userlist() {
-  const [clicked, isClicked] = useState(false);
   const [searchedValue, setSearchedValue] = useState("");
   const [recommendedList, setRecommendedList] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
@@ -19,17 +18,13 @@ function Userlist() {
   const [userList, setUserList] = useState([]);
   const [disableRating, setDisableRating] = useState(false);
   const [disableDateWatched, setDisableDateWatched] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
 
   let { userId } = useParams();
   const listType = searchParams.get("list");
   console.log(userId);
-
-  useEffect(() => {
-    fetchAllCards();
-  }, []);
 
   const fetchAllCards = async () => {
     console.log(listType);
@@ -51,6 +46,11 @@ function Userlist() {
       console.log(err);
     }
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    fetchAllCards();
+  }, []);
 
   const handleChange = (e) => {
     if (e && e.target.value) {
@@ -120,6 +120,9 @@ function Userlist() {
         );
         setUserList(newSortedList);
         break;
+
+      default:
+        console.log("This condition will never hit");
     }
   };
 
@@ -162,10 +165,6 @@ function Userlist() {
       )
         .then((res) => res.json())
         .then((resData) => setRecommendedList(resData.data));
-
-      if (recommendedList.length > 0) {
-        isClicked(!clicked);
-      }
     } catch (err) {
       console.log(err);
     }
@@ -176,10 +175,6 @@ function Userlist() {
       fetch(`https://www.episodate.com/api/search?q=${searchedValue}&page=1`)
         .then((res) => res.json())
         .then((resData) => setRecommendedList(resData.tv_shows));
-
-      if (recommendedList.length > 0) {
-        isClicked(!clicked);
-      }
     } catch (err) {
       console.log(err);
     }
@@ -192,10 +187,6 @@ function Userlist() {
       )
         .then((res) => res.json())
         .then((resData) => setRecommendedList(resData.results));
-
-      if (recommendedList.length > 0) {
-        isClicked(!clicked);
-      }
     } catch (err) {
       console.log(err);
     }
@@ -216,10 +207,6 @@ function Userlist() {
       )
         .then((res) => res.json())
         .then((resData) => setRecommendedList(resData.results));
-
-      if (recommendedList.length > 0) {
-        isClicked(!clicked);
-      }
     } catch (err) {
       console.log(err);
     }
@@ -299,7 +286,7 @@ function Userlist() {
                   `http://localhost:5000/post/${listType}`,
                   {
                     name:
-                      listType == "series" || listType == "game"
+                      listType === "series" || listType === "game"
                         ? selectedItem.name
                         : selectedItem.title,
                     rating: selectedRating,
@@ -360,7 +347,7 @@ function Userlist() {
                       <div
                         className="recommendDiv"
                         key={
-                          listType == "anime"
+                          listType === "anime"
                             ? singleSelectedItem.mal_id
                             : singleSelectedItem.id
                         }
@@ -368,7 +355,7 @@ function Userlist() {
                           handleRecommendationClick(singleSelectedItem)
                         }
                       >
-                        {listType == "anime" || listType == "movie"
+                        {listType === "anime" || listType === "movie"
                           ? singleSelectedItem.title
                           : singleSelectedItem.name}
                       </div>

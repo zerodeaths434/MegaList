@@ -96,6 +96,26 @@
     width: 100%;
 }
 
+.orStyle
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: sans-serif;
+    padding: 6px 0;
+    font-size: 12px;
+}
+
+.googleDivContainer
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
 .submit-btn
 {
     margin: 10px 0;

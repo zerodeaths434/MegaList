@@ -41,9 +41,6 @@ function Card({
     var newSelectedRating = e.options[e.selectedIndex].text;
     var newDateWatched = document.getElementById("updatedDateWatched");
     const dateArray = newDateWatched.value.split("-");
-    console.log(newDisableRating);
-    console.log(newDisableDateWatched);
-    console.log(dateArray);
 
     try {
       const resdata = await axios.put(
@@ -77,6 +74,7 @@ function Card({
         src={star}
         key={i}
         style={{ width: "15px", height: "15px", color: "orange" }}
+        alt="Orange star"
       />
     );
   }
@@ -216,7 +214,7 @@ function Card({
       >
         <img
           src={animeImage}
-          alt="This is random"
+          alt="Card"
           style={
             listType === "game"
               ? { width: "100%", borderRadius: "3% 3% 0 0" }
@@ -238,13 +236,3 @@ function Card({
 }
 
 export default Card;
-
-/*
- {animeRating}
-          {"   "}
-          <img
-            src={star}
-            alt="star"
-            style={{ width: "15px", height: "15px" }}
-          />
-          */
