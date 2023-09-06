@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const authRoute = require("./routes/auth");
 const cardRoute = require("./routes/cards");
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
@@ -27,4 +28,4 @@ mongoose
 app.use("/auth", authRoute);
 app.use("/post", cardRoute);
 
-app.listen(5000, () => console.log("Server started at port 5000"));
+app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
