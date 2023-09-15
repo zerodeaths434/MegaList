@@ -14,7 +14,6 @@ const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case loginStart.type:
-      console.log("Login started");
       return {
         user: null,
         loading: true,
@@ -36,7 +35,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
 
     case logout.type:
-      console.log("Entering in logout");
       return {
         user: null,
         loading: false,

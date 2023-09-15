@@ -2,7 +2,7 @@ import React from "react";
 import "./Loader.css";
 
 function Loader() {
-  return <span class="loader">Loading</span>;
+  return <span className="loader">Loading</span>;
 }
 
 export default Loader;

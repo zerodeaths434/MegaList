@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import "./LoginRegister.css";
@@ -24,19 +24,22 @@ function Login() {
   const isLogin = searchParams.get("mode") === "login";
   const navigate = useNavigate();
 
-  const handleCallbackResponse = (response) => {
-    var userObject = jwt_decode(response.credential);
+  const handleCallbackResponse = useCallback(
+    (response) => {
+      var userObject = jwt_decode(response.credential);
 
-    if (userObject) {
-      dispatch(
-        loginSucess({
-          user: userObject.sub,
-        })
-      );
-      localStorage.setItem("displayName", userObject.given_name);
-      navigate("/");
-    }
-  };
+      if (userObject) {
+        dispatch(
+          loginSucess({
+            user: userObject.sub,
+          })
+        );
+        localStorage.setItem("displayName", userObject.given_name);
+        navigate("/");
+      }
+    },
+    [dispatch, navigate]
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,7 +104,7 @@ function Login() {
     });
 
     google.accounts.id.prompt();
-  }, []);
+  }, [handleCallbackResponse]);
 
   return (
     <section className="login">

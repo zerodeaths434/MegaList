@@ -1,7 +1,7 @@
 import "./userlist.css";
 import Card from "../../components/cards/Card";
 import debounce from "lodash.debounce";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,10 +24,10 @@ function Userlist() {
 
   let { userId } = useParams();
   const listType = searchParams.get("list");
-  console.log(userId);
+  //console.log(userId);
 
-  const fetchAllCards = async () => {
-    console.log(listType);
+  const fetchAllCards = useCallback(async () => {
+    //console.log(listType);
     setLoading(true);
     try {
       const resData = await axios.get(
@@ -45,12 +45,11 @@ function Userlist() {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [listType, userId]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchAllCards();
-  }, []);
+  }, [fetchAllCards]);
 
   const handleChange = (e) => {
     if (e && e.target.value) {
@@ -212,8 +211,6 @@ function Userlist() {
     }
   };
 
-  console.log(recommendedList);
-
   return (
     <>
       <div className={`${openModal ? "modalDiv" : "modalDiv hide"}`}></div>
@@ -228,7 +225,7 @@ function Userlist() {
         </div>
         <div className="selectedItemTitle">{selectedItem.title}</div>
         <div className="ratingsDiv">
-          <label for="rating" className="rating-label">
+          <label htmlFor="rating" className="rating-label">
             Rating
           </label>
           <select name="rating" id="rating" disabled={disableRating}>
@@ -250,10 +247,10 @@ function Userlist() {
             className="input-margin-left"
             onClick={() => setDisableRating(!disableRating)}
           />
-          <label for="datePicker">Disable </label>
+          <label htmlFor="datePicker">Disable </label>
         </div>
         <div className="datePickerDiv">
-          <label for="datePicker" className="datepicker-label">
+          <label htmlFor="datePicker" className="datepicker-label">
             Birthday:
           </label>
           <input
@@ -269,7 +266,7 @@ function Userlist() {
             className="input-margin-left"
             onClick={() => setDisableDateWatched(!disableDateWatched)}
           />
-          <label for="datePicker">Disable</label>
+          <label htmlFor="datePicker">Disable</label>
         </div>
         <div className="button-container">
           <button
@@ -392,6 +389,7 @@ function Userlist() {
                   disable={userAnime.disable}
                   user={user}
                   listType={listType}
+                  key={user + userAnime.name}
                 />
               );
             })
