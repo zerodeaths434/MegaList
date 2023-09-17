@@ -38,7 +38,7 @@
 
 
 
-.trying
+.home-card-title
 {
   color: white;
   position: absolute;
@@ -106,7 +106,7 @@
     margin: 15px;
   }
 
-  .trying
+  .home-card-title
   {
     font-size: 40px;
   }
