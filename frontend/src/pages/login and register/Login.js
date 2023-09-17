@@ -27,6 +27,7 @@ function Login() {
   const handleCallbackResponse = useCallback(
     (response) => {
       var userObject = jwt_decode(response.credential);
+      localStorage.setItem("googleUserObj", JSON.stringify(userObject));
 
       if (userObject) {
         dispatch(
@@ -34,7 +35,6 @@ function Login() {
             user: userObject.sub,
           })
         );
-        localStorage.setItem("displayName", userObject.given_name);
         navigate("/");
       }
     },

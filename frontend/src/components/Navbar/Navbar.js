@@ -3,18 +3,19 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/logintask";
+import defaultImage from "./Default_pfp.svg";
 
 function Navbar() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showDropDown, setShowDropDown] = useState(false);
-  //console.log(user);
+  const googleObj = JSON.parse(localStorage.getItem("googleUserObj"));
 
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("user");
-    localStorage.removeItem("displayName");
+    localStorage.removeItem("googleUserObj");
     setShowDropDown(false);
     navigate("/");
   };
@@ -35,7 +36,7 @@ function Navbar() {
       {user ? (
         <>
           <img
-            src="https://ichef.bbci.co.uk/news/976/cpsprodpb/16620/production/_91408619_55df76d5-2245-41c1-8031-07a4da3f313f.jpg"
+            src={googleObj ? googleObj.picture : defaultImage}
             className="profilePic"
             alt="Profile Pic"
             onClick={() => setShowDropDown(!showDropDown)}
@@ -44,7 +45,7 @@ function Navbar() {
             className="navbarUsername"
             onClick={() => setShowDropDown(!showDropDown)}
           >
-            {localStorage.getItem("displayName") || user}
+            {googleObj ? googleObj.given_name : user}
           </div>
         </>
       ) : (
