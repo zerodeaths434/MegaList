@@ -251,10 +251,10 @@ function Userlist() {
         </div>
         <div className="datePickerDiv">
           <label htmlFor="datePicker" className="datepicker-label">
-            Birthday:
+            Watched on:
           </label>
           <input
-            type="month"
+            type="date"
             id="datePicker"
             name="datePicker"
             disabled={disableDateWatched}
